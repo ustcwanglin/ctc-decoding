@@ -20,11 +20,15 @@ function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 ```
 
 ## Extract the number of observations
+
 % X will always be 'CBT'. This is ensured in the ctc dlarray method.
+
 numObs = size(X, 2);
 
 ## Calculate the loss and the forward variables for each observation in a vectorized manner
+
 % 以向量化的方式计算每个观测值的损失和前向变量
+
 [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, numObs);
 
 end
@@ -32,23 +36,28 @@ end
 ## Helper functions
 
 function [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, numObs)
-%% Initialization
 
-% Extract the sequence lengths, max sequence lengths, and the augmented
-% targets 'augT'
+### Initialization
+
+% Extract the sequence lengths, max sequence lengths, and the augmented targets 'augT'
+% 提取序列长度、最大序列长度和增强目标“augT”
+
 [ XLens, ~, augTLens, XLenMax, ~, augTLenMax, augT ] = ...
     nnet.internal.cnnhost.util.initializeCtc(X, T, XMask, TMask, blankIdx, numObs);
 
-% Initialize the forward variables (i.e. the total probabilities at each
-% time step)
+% Initialize the forward variables (i.e. the total probabilities at each time step)
+
 alphas = zeros( numObs, augTLenMax, XLenMax, 'like', X );
 
 % Initialize the normalization factors
+
 Ct = ones( numObs, XLenMax, 'like', X );
 
-%% Populate the entries of alphas( :, :, 1 ) and normalize
+### Populate the entries of alphas( :, :, 1 ) and normalize
+填充 alphas( :, :, 1 ) 的条目并标准化
 
 % The first entry will always be a blank character for every observation
+
 alphas( :, 1, 1 ) = X( blankIdx, :, 1 );
 
 % The second entry will be the first target entry for each observation
