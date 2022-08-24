@@ -27,7 +27,7 @@ numObs = size(X, 2);
 
 end
 
-%% Helper functions
+## Helper functions
 
 function [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, numObs)
 %% Initialization
