@@ -85,9 +85,12 @@ alphas( :, :, 1 ) = nnet.internal.cnnhost.util.vecDivide( alphas( :, :, 1 ), ...
 for t = 2:XLenMax
     %% Initialization at each time step t
 
-    % Initialize a vector which will be multiplied by X(augT, :, t) (i.e. the 
-    % probabilities at time step t for augmented target sequence) to give 
-    % alphas(:, :, t) (i.e. total probabilities at time step t)
+    % Initialize a vector which will be multiplied by X(augT, :, t) 
+    % (i.e. the probabilities at time step t for augmented target sequence) 
+    % to give alphas(:, :, t) (i.e. total probabilities at time step t)
+    
+    % % 初始化一个向量，该向量将乘以 X(augT, :, t)（即增强目标序列在时间步 t 的概率）以给出 alphas(:, :, t)（即时间步 t 的总概率）
+    
     probMultiplier = zeros( numObs, augTLenMax, 'like', X );
 
     % Find valid positions given by the range begin : finish where begin and 
