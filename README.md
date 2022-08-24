@@ -1,4 +1,5 @@
 function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
+```matlab
 % ctcForward     Compute the loss and the forward variables alphas by 
 % looping forward through each time step t in X to find alphas(:, :, t) 
 % (i.e. total probability). Begin by initializing alphas(:, :, 1) with
@@ -10,6 +11,7 @@ function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 % information, refer to original paper 
 % https://www.cs.toronto.edu/~graves/icml_2006.pdf
 
+```bash
 % Extract the number of observations
 % X will always be 'CBT'. This is ensured in the ctc dlarray method.
 numObs = size(X, 2);
