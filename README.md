@@ -21,8 +21,8 @@ function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 % X will always be 'CBT'. This is ensured in the ctc dlarray method.
 numObs = size(X, 2);
 
-% Calculate the loss and the forward variables for each observation in a
-% vectorized manner
+% Calculate the loss and the forward variables for each observation in a vectorized manner
+% 以向量化的方式计算每个观测值的损失和前向变量
 [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, numObs);
 
 end
