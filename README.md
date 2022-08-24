@@ -1,15 +1,12 @@
 function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 ```matlab
-% ctcForward     Compute the loss and the forward variables alphas by 
-% looping forward through each time step t in X to find alphas(:, :, t) 
-% (i.e. total probability). Begin by initializing alphas(:, :, 1) with
-% entries in X (i.e. total probability at first time step equal to
-% probability at first time step), and recursively find the alphas(:, :, t+1)
-% at the next step by multiplying alphas(:, :, t) by X(:, :, t) (i.e. total
-% probabilities at next time step equal to total probabilities at current
-% time step multiplied by probabilities at current time step). For more
-% information, refer to original paper 
-% https://www.cs.toronto.edu/~graves/icml_2006.pdf
+% ctcForward     
+% Compute the loss and the forward variables alphas by looping forward through each time step t in X to find alphas(:, :, t) 
+% (i.e. total probability). 
+% Begin by initializing alphas(:, :, 1) with entries in X (i.e. total probability at first time step equal to probability at first time step), 
+% and recursively find the alphas(:, :, t+1) at the next step by multiplying alphas(:, :, t) by X(:, :, t) 
+% (i.e. total probabilities at next time step equal to total probabilities at current time step multiplied by probabilities at current time step). 
+% For more information, refer to original paper https://www.cs.toronto.edu/~graves/icml_2006.pdf
 
 
 % Extract the number of observations
