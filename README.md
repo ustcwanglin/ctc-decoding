@@ -40,6 +40,7 @@ function [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, nu
 ### Initialization
 
 % Extract the sequence lengths, max sequence lengths, and the augmented targets 'augT'
+
 % 提取序列长度、最大序列长度和增强目标“augT”
 
 [ XLens, ~, augTLens, XLenMax, ~, augTLenMax, augT ] = ...
@@ -54,25 +55,33 @@ alphas = zeros( numObs, augTLenMax, XLenMax, 'like', X );
 Ct = ones( numObs, XLenMax, 'like', X );
 
 ### Populate the entries of alphas( :, :, 1 ) and normalize
+
 填充 alphas( :, :, 1 ) 的条目并标准化
 
-% The first entry will always be a blank character for every observation
+### The first entry will always be a blank character for every observation
 
 alphas( :, 1, 1 ) = X( blankIdx, :, 1 );
 
-% The second entry will be the first target entry for each observation
+### The second entry will be the first target entry for each observation
+
 indC = T( :, 1 )';
+
 indB = 1 : numObs;
+
 indT = ones( 1, numObs );
+
 alphas( :, 2, 1 ) = X( sub2ind( size(X), indC, indB, indT ) );
 
-% Calculate the normalization factors at first time step
+### Calculate the normalization factors at first time step
+
 Ct( :, 1 ) = sum( alphas( :, :, 1 ), 2 );
 
-% Normalize forward variables to prevent underflow
+### Normalize forward variables to prevent underflow
+
 alphas( :, :, 1 ) = nnet.internal.cnnhost.util.vecDivide( alphas( :, :, 1 ), ...
     Ct( :, 1 ) );
-
+    
+```matlab
 for t = 2:XLenMax
     %% Initialization at each time step t
 
@@ -166,6 +175,8 @@ for t = 2:XLenMax
         Ct( :, t ) );
     
 end
+```
+
 
 %% Calculate loss
 
