@@ -1,6 +1,6 @@
 function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 ```matlab
-% ctcForward     
+# ctcForward     
 
 % Compute the loss and the forward variables alphas by looping forward through each time step t in X to find alphas(:, :, t) 
 % 通过向前循环 X 中的每个时间步 t 来计算损失和前向变量 alphas 以找到 alphas(:, :, t)。
@@ -17,11 +17,11 @@ function [loss, alphas] = ctcForward(X, T, XMask, TMask, blankIdx)
 % For more information, refer to original paper https://www.cs.toronto.edu/~graves/icml_2006.pdf
 % 有关详细信息，请参阅原始论文
 
-% Extract the number of observations
+## Extract the number of observations
 % X will always be 'CBT'. This is ensured in the ctc dlarray method.
 numObs = size(X, 2);
 
-% Calculate the loss and the forward variables for each observation in a vectorized manner
+## Calculate the loss and the forward variables for each observation in a vectorized manner
 % 以向量化的方式计算每个观测值的损失和前向变量
 [loss, alphas] = iComputeAlphasAndLoss(X, T, XMask, TMask, blankIdx, numObs);
 
